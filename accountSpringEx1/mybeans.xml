@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <bean id="adao" class="com.sn.dao.AccountsDAO"/>
+    <bean id="cb" class="com.sn.service.CheckBalance">
+        <constructor-arg ref="adao"/>
+    </bean>
+
+    <bean id="ds" class="com.sn.service.DepositeService">
+        <constructor-arg ref="adao"/>
+    </bean>
+
+    <bean id="ws" class="com.sn.service.WithdrawService">
+        <constructor-arg ref="adao"/>
+        <constructor-arg ref="cb"/>
+    </bean>
+
+     <bean id="ts" class="com.sn.service.TAService">
+        <constructor-arg ref="ds"/>
+        <constructor-arg ref="ws"/>
+    </bean>
+
+</beans>
